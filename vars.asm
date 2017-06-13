@@ -15,6 +15,12 @@ ihitrow DEFB	$00
 lowrow	DEFB	$00
 
 exitlp	DEFB	$00
+
+;demo
+demo	DEFB	$00
+democnt	DEFW	$0000
+demopos	DEFB	$00
+
 	
 ibulctm DEFB	$00	
 invwait DEFB	$00

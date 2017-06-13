@@ -34,6 +34,7 @@
 	
 ;instructions
 restart
+	call demoinit
 	call instruct	
 
 ;switch to hires	
@@ -60,6 +61,19 @@ oneupstart
 ;then - onto the main loop	
 mainlp		
 	call dispscore
+	
+
+	ld	hl,(D_FILE)
+	ld	bc,10
+	add hl,bc
+	
+	
+	push hl
+	ld a,(bully)
+	call dispno
+	pop	hl
+
+	
 ;read the keys
 	call readkeys
 ;draw the player	
@@ -148,6 +162,10 @@ endall
 ;exit the main loop - switch back to low res	
 	call lores
 	call cls
+;don't update hiscore on a demo	
+	ld a,(demo)
+	cp $1
+	jr z,notnewhs
 ;see if we've got a new hiscore	
 	ld hl,(hiscore)
 	ld bc,(score)
@@ -184,7 +202,7 @@ notnewhs
 	
 	
 	push hl
-	ld a,(invypos)
+	ld a,(bully)
 	call dispno
 	pop	hl
 
@@ -1435,13 +1453,13 @@ drawbull
 ;rub out old bullet
 	ld c,BLANK_BITS
 	ld b,BULHEIGHT
-	ld de,DISPLEN
+	ld de,DISPLEN		
 rubbull
 	ld (hl),c
 	and a
 	sbc hl,de
 	djnz rubbull
-;we've already moved up..
+;we've already moved up	
 	jr pmoveup
 norub
 ;move up	
@@ -1451,12 +1469,12 @@ norub
 pmoveup	
 	ld (bullpos),hl
 	
-notopyxet	
+;clear carry	
 	and a
 	ld a,(bully)
 	sbc a,MOVEUPBY
 	ld (bully),a	
-	cp 0
+	cp $fe
 	jr nz,notopyet2
 	xor a
 	ld (bullact),a
@@ -1691,13 +1709,23 @@ dispno
 ;hundreds	
 	ld e,100
 	cp e
-	jr	c,nothuns
+	jr	nc,huns
+	ld b,_0
+	ld (hl),b
+	inc hl
+	jr nothuns
+huns	
 	call digitcalc	
 nothuns
 ;tens
 	ld e,10
 	cp e
-	jr	c,notens
+	jr	nc,tens
+	ld b,_0
+	ld (hl),b
+	inc hl
+	jr pnotens
+tens	
 	call digitcalc
 	jr	pnotens
 notens
@@ -1834,13 +1862,22 @@ cloop2End
 readkeys
 ;a bit lazy - call the ROM routine to get the zone values into HL
 	call KSCAN
-;lazy test for zones...	
-;exit on q
- 	bit 2,l
-	jr nz,noexkey
+	
+;check for demo flag	
+	ld a,(demo)
+	or a
+	jr z,nodemo
+;in demo, exit on any key
+	ld a,$ff
+ 	cp l
+	jr z,noexkey
 	ld a,QUIT_GAME
 	ld (exitlp),a
-noexkey	
+	ret
+noexkey		
+	ret
+nodemo	
+	
 ;check for explosion
 	ld a,(baseexp)
 	cp $0
@@ -2055,23 +2092,41 @@ instruct
 	
 	
 waitkpress
+	ld hl,(democnt)
+	dec hl
+	ld (democnt),hl
+	xor a
+	cp h
+	jr nz,coni
+	cp l
+	jr z,fininst
+coni
 	call KSCAN
 	
  	bit 3,l
 	jr nz,waitkpress
+
+
 	
 ;	ld a,l
 ;	cp $ff
 ;	jp z,waitkpress
 
-	ld bc,(DISPLEN*7)+10
-	ld de,instruct1
-	call clearstring
-	ld bc,(DISPLEN*10)+6
-	ld de,instruct2
-	call clearstring
+;	ld bc,(DISPLEN*7)+10
+;	ld de,instruct1
+;	call clearstring
+;	ld bc,(DISPLEN*10)+6
+;	ld de,instruct2
+;	call clearstring
 
 	ret
+	
+fininst	
+	ld a,1
+	ld (demo),a
+	
+	ret
+	
 ;include our variables
 #include "vars.asm"
 

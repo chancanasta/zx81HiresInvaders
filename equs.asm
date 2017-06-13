@@ -7,6 +7,9 @@ MAX_X			EQU	238
 MIN_X			EQU	0
 BULL_INIT		EQU 126
 
+;delay before demo starts
+DEMO_WAIT		EQU 10000
+
 ;invaders bomb speed increase
 INV_BOMB_TRIG	EQU	4
 INV_BOMB_DEC	EQU 4
