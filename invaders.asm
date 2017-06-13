@@ -67,13 +67,7 @@ mainlp
 	ld	bc,10
 	add hl,bc
 	
-	
-	push hl
-	ld a,(bully)
-	call dispno
-	pop	hl
-
-	
+		
 ;read the keys
 	call readkeys
 ;draw the player	
@@ -1709,25 +1703,27 @@ dispno
 ;hundreds	
 	ld e,100
 	cp e
-	jr	nc,huns
-	ld b,_0
-	ld (hl),b
-	inc hl
-	jr nothuns
-huns	
+	jr c,nothuns
+;	jr	nc,huns
+;	ld b,_0
+;	ld (hl),b
+;	inc hl
+;	jr nothuns
+;huns	
 	call digitcalc	
 nothuns
 ;tens
 	ld e,10
 	cp e
-	jr	nc,tens
-	ld b,_0
-	ld (hl),b
-	inc hl
-	jr pnotens
-tens	
+	jr c,notens
+;	jr	nc,tens
+;	ld b,_0
+;	ld (hl),b
+;	inc hl
+;	jr pnotens
+;tens	
 	call digitcalc
-	jr	pnotens
+;	jr	pnotens
 notens
 ;check if we need to show zeros
 	ld c,a
