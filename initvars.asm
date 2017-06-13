@@ -7,7 +7,7 @@ init1up
 	ld hl,0
 	ld (score),hl
 ;lives to 3	
-	ld a,3
+	ld a,1
 	ld (lives),a
 ;and the starting point of the invaders	
 	ld a,8

@@ -1,12 +1,13 @@
 ;clear screen routines
 cls
+
 	push af
 	push bc
 	push hl
 	ld a,0
 	ld hl,Display
 	inc hl
-	ld c,24
+	ld c,1
 clslp1	
 	ld b,32
 clslp2

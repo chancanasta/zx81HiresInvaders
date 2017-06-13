@@ -59,7 +59,7 @@ instruct2
 instruct3
 		DEFB	_P,_R,_E,_S,_S,__,_1,__,__,_T,_O,__,_S,_T,_A,_R,_T,$ff
 instruct4
-		DEFB	_OP,_C,_CP,__,_B,_R,_I,_A,_N,__,_L,_E,_W,_I,_S,__,_2,_0,_1,_3,$ff
+		DEFB	_OP,_C,_CP,__,_B,_R,_I,_A,_N,__,_L,_E,_W,_I,_S,__,_2,_0,_1,_3,_CM,__,_2,_0,_1,_7,$ff
 
 lives_txt
 		DEFB	_L,_I,_V,_E,_S,$ff

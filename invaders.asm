@@ -2024,29 +2024,29 @@ sync
 
 ;show some rubbish instructions	
 instruct
-	ld bc,(DISPLEN*7)+11
-	ld de,instruct1
-	call dispstring
+	;ld bc,(DISPLEN*7)+11
+	;ld de,instruct1
+	;call dispstring
 
-	ld bc,(DISPLEN*10)+10
+	ld bc,(DISPLEN*7)+10
 	ld de,hiscore_txt
 	call dispstring
 
-	ld bc,(DISPLEN*10)+19
+	ld bc,(DISPLEN*7)+19
 	ld de,hiscore
 	call dispBCD
 	
-	ld bc,(DISPLEN*13)+2
+	ld bc,(DISPLEN*11)+2
 	ld de,instruct2
 	call dispstring
 
 	
 
-	ld bc,(DISPLEN*16)+8
+	ld bc,(DISPLEN*14)+8
 	ld de,instruct3
 	call dispstring
 
-	ld bc,(DISPLEN*21)+6	
+	ld bc,(DISPLEN*23)+3	
 	ld de,instruct4
 	call dispstring
 	
