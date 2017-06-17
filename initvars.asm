@@ -6,7 +6,10 @@ demoinit
 	xor a
 ;demo state and idx for keys	
 	ld (demo),a
-	ld (demopos),a
+	ld (democlk),a
+	ld (firedwn),a
+	ld hl,demokey
+	ld (demopnt),hl
 	ret
 	
 ;reset scores and lives

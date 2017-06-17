@@ -19,8 +19,9 @@ exitlp	DEFB	$00
 ;demo
 demo	DEFB	$00
 democnt	DEFW	$0000
-demopos	DEFB	$00
-
+democlk	DEFB	$00
+demokey	DEFB	239,111,119,$ff,111,119,119,111,$ff,119,111,119,119,$ff,0
+demopnt	DEFW	$0000
 	
 ibulctm DEFB	$00	
 invwait DEFB	$00

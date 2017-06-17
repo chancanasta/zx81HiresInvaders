@@ -1871,7 +1871,47 @@ readkeys
 	ld (exitlp),a
 	ret
 noexkey		
-	ret
+;in demo but no key pressed
+;read key input from array
+
+	
+	ld hl,(demopnt)
+
+;check if we've come to the end of the list	
+	ld a,(hl)
+	cp $0
+	jr nz,notkend
+	ld hl,demokey
+	ld (demopnt),hl
+	ld a,(hl)
+	
+	
+notkend
+;store it away		
+	push af
+;increase our counter
+	ld a,(democnt)
+	inc a
+	ld (democnt),a
+	cp DEMO_KEYCNT
+	jr nz,notkcnt
+;move onto next item	
+	xor a 
+	ld (democnt),a
+	ld (firedwn),a
+	ld hl,(demopnt)
+	inc hl
+	ld (demopnt),hl
+notkcnt	
+	
+;	1 2 4 8 16 32 64 128
+;   0 1 2 3  4  5  6   7
+;   
+
+	pop af
+	ld l,a
+
+	;ret
 nodemo	
 	
 ;check for explosion
@@ -2028,7 +2068,7 @@ pastnotfire
 nokey3		
 	ret
 nokey4
-	ld a,0
+	xor a	
 	ld (firedwn),a
 	ret
 
